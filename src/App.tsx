@@ -1,16 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, AdminLogin } from "./pages";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-      </Routes>
-    </Router>
-  );
+  return <AppRoutes />;
 }
 
 export default App;

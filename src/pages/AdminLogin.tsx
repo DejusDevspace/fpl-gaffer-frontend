@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -81,11 +81,18 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-accent/60 hover:bg-accent/70 cursor-pointer disabled:bg-gray-400 text-white font-semibold py-2 px-4 rounded-lg transition"
+            className="w-full bg-accent hover:bg-accent/90 cursor-pointer disabled:bg-gray-400 text-white font-semibold py-2 px-4 rounded-lg transition"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <p className="pt-2.5">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-accent">
+            Sign Up
+          </Link>
+        </p>
       </div>
     </div>
   );

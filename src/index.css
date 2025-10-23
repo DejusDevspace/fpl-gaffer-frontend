@@ -6,6 +6,8 @@
   --color-secondary: #1e0021;
   --color-accent: #11b6d0;
   --color-aux: #37003c;
+
+  --linear-gradient-accent: linear-gradient(90deg, #11b6d0, #4673d0, #7c2fd0);
 }
 
 @layer base {
@@ -14,6 +16,12 @@
     padding: 0;
     color: var(--color-primary);
     background-color: var(--color-secondary);
+  }
+}
+
+@layer utilities {
+  .my-gradient {
+    color: var(--linear-gradient-accent);
   }
 }
 

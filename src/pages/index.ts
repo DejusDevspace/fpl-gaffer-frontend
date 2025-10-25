@@ -1,5 +1,9 @@
 import Home from "./Home";
-import AdminLogin from "./AdminLogin";
+import Login from "./Login";
 import Chat from "./Chat";
+import SignUp from "./SignUp";
+import LinkFPL from "./LinkFPL";
+import Dashboard from "./Dashboard";
+import Settings from "./Settings";
 
-export { Home, AdminLogin, Chat };
+export { Home, Login, SignUp, Chat, Dashboard, LinkFPL, Settings };

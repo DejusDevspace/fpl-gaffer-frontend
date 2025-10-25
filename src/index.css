@@ -3,7 +3,7 @@
 @theme {
   /* Colors */
   --color-primary: white;
-  --color-secondary: #1e0021;
+  --color-background: #1e0021;
   --color-accent: #11b6d0;
   --color-aux: #37003c;
 
@@ -15,7 +15,7 @@
     margin: 0;
     padding: 0;
     color: var(--color-primary);
-    background-color: var(--color-secondary);
+    background-color: var(--color-background);
   }
 }
 

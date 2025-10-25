@@ -36,22 +36,22 @@ export default function SignUp() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md text-center">
-          <div className="text-green-600 text-5xl mb-4">✓</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center p-4">
+        <div className="bg-aux/50 rounded-lg shadow-md p-8 w-full max-w-md text-center">
+          <div className="text-greenAccent text-5xl mb-4">✓</div>
+          <h2 className="text-2xl font-bold text-accent/80 mb-4">
             Account Created!
           </h2>
-          <p className="text-gray-700">Redirecting to dashboard...</p>
+          <p className="text-primary/70">Redirecting to dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">
+    <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center p-4">
+      <div className="bg-aux/50 rounded-lg shadow-md p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold text-primary/60 mb-6">
           Sign Up for FPL Gaffer
         </h1>
 
@@ -63,7 +63,7 @@ export default function SignUp() {
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-primary/70 mb-1">
               Email
             </label>
             <input
@@ -71,12 +71,13 @@ export default function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full border border-gray-300 text-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-background bg-secondary/20 text-primary/70 rounded-lg px-4 py-2
+              focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-primary/70 mb-1">
               Password
             </label>
             <input
@@ -85,7 +86,8 @@ export default function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              className="w-full border border-gray-300 text-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-background text-primary/70 rounded-lg px-4 py-2
+              focus:outline-none focus:ring-2 focus:ring-accent"
             />
             <p className="text-xs text-gray-500 mt-1">At least 6 characters</p>
           </div>
@@ -93,19 +95,19 @@ export default function SignUp() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white
+            className="w-full bg-accent/80 hover:bg-accent/60 hover:scale-105 disabled:bg-gray-400 text-white
             font-semibold py-2 px-4 rounded-lg cursor-pointer transition"
           >
             {loading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-600">
+        <div className="mt-6 text-center text-sm text-primary/70">
           <p>
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-blue-600 hover:underline cursor-pointer"
+              className="text-accent hover:underline cursor-pointer"
             >
               Login
             </Link>

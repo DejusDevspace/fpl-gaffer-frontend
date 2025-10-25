@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "../api/apiClient";
-import { LogOut } from "lucide-react";
+// import { LogOut } from "lucide-react";
 
 export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

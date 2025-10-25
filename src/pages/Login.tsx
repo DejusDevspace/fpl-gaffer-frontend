@@ -35,9 +35,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">
+    <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center p-4">
+      <div className="bg-aux/50 rounded-lg shadow-xl p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold text-primary/60 mb-6">
           Login to FPL Gaffer
         </h1>
 
@@ -49,7 +49,7 @@ export default function Login() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-primary/70 mb-1">
               Email
             </label>
             <input
@@ -57,13 +57,13 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full border border-gray-300 text-gray-800 rounded-lg px-4 py-2
-              focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-background bg-secondary/20 text-primary/70 rounded-lg px-4 py-2
+              focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-primary/70 mb-1">
               Password
             </label>
             <input
@@ -71,25 +71,25 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full border border-gray-300 text-gray-800 rounded-lg px-4 py-2
-              focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-background text-primary/70 rounded-lg px-4 py-2
+              focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400
-            text-white font-semibold py-2 px-4 rounded-lg cursor-pointer transition"
+            className="w-full bg-accent/80 hover:bg-accent/60 hover:scale-105 disabled:bg-gray-400
+            text-white font-semibold py-2 px-4 rounded-lg cursor-pointer transition-all duration-300"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-600">
+        <div className="mt-6 text-center text-sm text-primary/70">
           <p>
             Don't have an account?{" "}
-            <Link to="/signup" className="text-blue-600 hover:underline">
+            <Link to="/signup" className="text-accent hover:underline">
               Sign up
             </Link>
           </p>

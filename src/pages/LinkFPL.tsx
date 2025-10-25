@@ -35,6 +35,7 @@ export default function LinkFPL() {
         setError(error.response?.data?.detail || "Failed to link FPL team");
         return;
       }
+
       if (response?.status === 200) {
         setSuccess(true);
         setTimeout(() => navigate("/dashboard"), 2000);

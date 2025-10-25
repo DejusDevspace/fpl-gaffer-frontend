@@ -1,5 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, AdminLogin, Chat } from "../pages";
+import {
+  Home,
+  Login,
+  SignUp,
+  Chat,
+  LinkFPL,
+  Dashboard,
+  Settings,
+} from "../pages";
 import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
@@ -7,7 +15,7 @@ const AppRoutes = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/chat"
           element={
@@ -15,7 +23,25 @@ const AppRoutes = () => {
               <Chat />
             </ProtectedRoute>
           }
-        ></Route>
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/link-fpl"
+          element={
+            <ProtectedRoute>
+              <LinkFPL />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </Router>
   );

@@ -98,7 +98,7 @@ export default function Settings() {
           {fplTeam ? (
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-600 text-accent">Team Name:</span>
+                <span className="text-accent">Team Name:</span>
                 <span className="font-semibold">{fplTeam.team_name}</span>
               </div>
               <div className="flex justify-between">

@@ -94,7 +94,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center">
         <div className="flex flex-col justify-center items-center text-xl font-semibold text-gray-700">
           {syncing && (
             <span className="text-accent">
@@ -109,7 +109,7 @@ export default function Dashboard() {
 
   if (error || !data) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-xl font-semibold text-red-600 mb-4">
             {error || "No data available"}
@@ -128,9 +128,10 @@ export default function Dashboard() {
   const { team, current_gameweek, gameweek_history, current_captain } = data;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
-      <nav className="bg-white shadow-sm border-b sticky top-0 z-10">
+      {/* TODO: To replace with sidebar */}
+      <nav className="bg-background/70 shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
@@ -199,7 +200,7 @@ export default function Dashboard() {
 
         {/* Charts */}
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900">Analytics</h2>
+          <h2 className="text-xl font-bold text-accent">Analytics</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <RankChart data={gameweek_history} />
@@ -210,12 +211,12 @@ export default function Dashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-aux rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link
               to="/chat"
-              className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition"
+              className="flex items-center gap-3 p-4 bg-background/20 rounded-lg shadow-lg hover:bg-background/10 transition"
             >
               <MessageSquare className="text-blue-600" />
               <div>
@@ -225,7 +226,7 @@ export default function Dashboard() {
             </Link>
             <button
               onClick={() => handleSync(data.team.fpl_id)}
-              className="flex items-center gap-3 p-4 bg-green-50 rounded-lg cursor-pointer hover:bg-green-100 transition"
+              className="flex items-center gap-3 p-4 bg-background/20 rounded-lg shadow-lg hover:bg-background/10 cursor-pointer transition"
             >
               <TrendingUp className="text-green-600" />
               <div>
@@ -235,9 +236,9 @@ export default function Dashboard() {
             </button>
             <Link
               to="/settings"
-              className="flex items-center gap-3 p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition"
+              className="flex items-center gap-3 p-4 bg-background/20 rounded-lg shadow-lg hover:bg-background/10 cursor-pointer transition"
             >
-              <Settings className="text-purple-600" />
+              <Settings className="text-accent/60" />
               <div>
                 <div className="font-semibold">Settings</div>
                 <div className="text-sm text-gray-600">Manage account</div>

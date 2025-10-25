@@ -22,7 +22,7 @@ export default function PointsChart({ data }: PointsChartProps) {
   }));
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-aux rounded-lg shadow p-6">
       <h3 className="text-lg font-semibold mb-4">Points Per Gameweek</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={chartData}>

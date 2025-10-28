@@ -1,37 +1,15 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { supabase } from "../api/apiClient";
+import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
+  const { login, loading, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      const { data, error: authError } = await supabase.auth.signInWithPassword(
-        {
-          email,
-          password,
-        }
-      );
-
-      if (authError) throw authError;
-
-      if (data.session) {
-        navigate("/dashboard");
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
-    } finally {
-      setLoading(false);
-    }
+    await login(email, password);
   };
 
   return (

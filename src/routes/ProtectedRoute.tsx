@@ -1,29 +1,13 @@
+import React from "react";
 import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { supabase } from "../api/apiClient";
+import useAuth from "../hooks/useAuth";
 
-export default function ProtectedRoute({
-  children,
-}: {
+interface ProtectedRouteProps {
   children: React.ReactNode;
-}) {
-  const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+}
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setAuthenticated(!!session);
-      setLoading(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setAuthenticated(!!session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const { loading, authenticated } = useAuth();
 
   if (loading) {
     return (

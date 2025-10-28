@@ -1,37 +1,19 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { supabase } from "../api/apiClient";
+import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function SignUp() {
+  const { signup, loading, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
+    setSuccess(false);
 
-    try {
-      const { data, error: authError } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-
-      if (authError) throw authError;
-
-      if (data.user) {
-        setSuccess(true);
-        setTimeout(() => navigate("/dashboard"), 2000);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Signup failed");
-    } finally {
-      setLoading(false);
-    }
+    const ok = await signup(email, password);
+    if (ok) setSuccess(true);
   };
 
   if (success) {

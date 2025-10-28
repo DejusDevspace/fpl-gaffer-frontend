@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import {
   Home,
   Login,
@@ -12,38 +12,36 @@ import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              <Chat />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/link-fpl"
-          element={
-            <ProtectedRoute>
-              <LinkFPL />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <Chat />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/link-fpl"
+        element={
+          <ProtectedRoute>
+            <LinkFPL />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/settings" element={<Settings />} />
+    </Routes>
   );
 };
 

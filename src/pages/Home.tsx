@@ -1,21 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { supabase } from "../api/apiClient";
+import useAuth from "../hooks/useAuth";
+
 // import { LogOut } from "lucide-react";
 
 export default function Home() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setIsAuthenticated(!!session);
-    });
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
-  };
+  const { authenticated } = useAuth();
 
   return (
     <div
@@ -34,7 +23,7 @@ export default function Home() {
         </div>
 
         <div className="space-y-4">
-          {isAuthenticated ? (
+          {authenticated ? (
             <>
               <Link
                 to="/dashboard"

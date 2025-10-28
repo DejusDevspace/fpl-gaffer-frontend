@@ -1,7 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-
-// import { LogOut } from "lucide-react";
 
 export default function Home() {
   const { authenticated } = useAuth();
@@ -39,14 +37,6 @@ export default function Home() {
               >
                 Chat with Gaffer
               </Link>
-
-              {/* <button
-                onClick={handleLogout}
-                className="flex items-center gap-2 text-gray-700 hover:text-red-600"
-              >
-                <LogOut size={20} />
-                <span className="hidden sm:inline">Logout</span>
-              </button> */}
             </>
           ) : (
             <>

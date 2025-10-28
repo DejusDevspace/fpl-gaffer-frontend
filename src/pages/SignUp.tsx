@@ -24,7 +24,7 @@ export default function SignUp() {
           <h2 className="text-2xl font-bold text-accent/80 mb-4">
             Account Created!
           </h2>
-          <p className="text-primary/70">Redirecting to dashboard...</p>
+          <p className="text-primary/70">Redirecting to login page...</p>
         </div>
       </div>
     );

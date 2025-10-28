@@ -78,7 +78,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       if (authError) throw authError;
 
       if (data.user) {
-        setTimeout(() => navigate("/dashboard"), 2000);
+        setTimeout(() => navigate("/login"), 2000);
         return true;
       }
       return false;

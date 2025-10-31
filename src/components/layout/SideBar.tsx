@@ -5,6 +5,7 @@ import {
   BsImage,
   BsCameraVideo,
   BsClockHistory,
+  BsGraphDown,
 } from "react-icons/bs";
 
 interface SidebarProps {
@@ -18,39 +19,39 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside
-      className={`h-screen w-72 border-r border-gray-200 flex flex-col justify-between ${
-        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      className={`h-screen w-72 rounded-r-3xl border-r border-accent/75 flex flex-col justify-between ${
+        darkMode ? "bg-gray-900 text-white" : "bg-background text-primary"
       }`}
     >
       {/* Top Section */}
       <div>
         {/* Logo */}
-        <div className="flex items-center px-6 py-5 border-b border-gray-200">
-          <div className="w-6 h-6 rounded-md bg-green-500 mr-2"></div>
-          <h1 className="text-lg font-semibold">Relatus.AI</h1>
+        <div className="flex items-center px-6 py-5 border-b border-accent/40">
+          <div className="w-6 h-6 rounded-md bg-accent/40 mr-2"></div>
+          <h1 className="text-lg font-semibold">FPL Gaffer</h1>
         </div>
 
         {/* Menu */}
         <nav className="mt-4">
           <ul className="space-y-1">
-            <li className="px-6 py-2 flex items-center gap-3 font-medium bg-gray-100 rounded-r-full text-green-600">
-              <BsChatLeftDots /> AI Chat
+            <li className="px-6 py-2 flex items-center gap-3 font-medium bg-aux/70 rounded-r-full text-green-600 cursor-pointer">
+              <BsChatLeftDots /> Chat with Gaffer
             </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <BsCameraVideo /> AI Video
+            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
+              <BsGraphDown /> Dashboard
             </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
+            {/* <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
               <BsImage /> AI Image
-            </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
+            </li> */}
+            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
               <BsClockHistory /> History
             </li>
           </ul>
         </nav>
 
         {/* Recent Chat Section */}
-        <div className="mt-6 border-t border-gray-200 pt-4 px-6">
-          <p className="text-sm font-semibold mb-2 text-gray-500">
+        <div className="mt-6 border-t border-accent/40 pt-4 px-6">
+          <p className="text-sm font-semibold mb-2 text-primary/70">
             Recent Chat
           </p>
           <ul className="space-y-2">
@@ -64,14 +65,14 @@ const Sidebar: React.FC<SidebarProps> = ({
               Tips for Daily Productivi...
             </li>
           </ul>
-          <button className="mt-3 text-sm text-green-600 font-medium">
+          <button className="mt-3 text-sm text-green-600 font-medium cursor-pointer">
             Show More
           </button>
         </div>
       </div>
 
       {/* Bottom Section */}
-      <div className="border-t border-gray-200 px-6 py-4 space-y-4">
+      <div className="border-t border-accent/40 px-6 py-4 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <FiSettings /> <span>Settings</span>

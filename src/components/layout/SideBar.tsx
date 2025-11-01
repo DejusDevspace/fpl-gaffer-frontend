@@ -1,12 +1,6 @@
 import React from "react";
 import { FiSettings, FiHelpCircle, FiSun, FiMoon } from "react-icons/fi";
-import {
-  BsChatLeftDots,
-  BsImage,
-  BsCameraVideo,
-  BsClockHistory,
-  BsGraphDown,
-} from "react-icons/bs";
+import { BsChatLeftDots, BsClockHistory, BsGraphDown } from "react-icons/bs";
 
 interface SidebarProps {
   darkMode?: boolean;
@@ -41,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <BsGraphDown /> Dashboard
             </li>
             {/* <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
-              <BsImage /> AI Image
+              <BsImage /> Leagues
             </li> */}
             <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
               <BsClockHistory /> History

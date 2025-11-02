@@ -1,6 +1,12 @@
 import React from "react";
 import { FiSettings, FiHelpCircle, FiSun, FiMoon } from "react-icons/fi";
-import { BsChatLeftDots, BsClockHistory, BsGraphDown } from "react-icons/bs";
+import {
+  BsChatLeftDots,
+  BsClockHistory,
+  BsGraphDown,
+  BsTrophy,
+  BsQuestionCircleFill,
+} from "react-icons/bs";
 
 interface SidebarProps {
   darkMode?: boolean;
@@ -34,11 +40,14 @@ const Sidebar: React.FC<SidebarProps> = ({
             <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
               <BsGraphDown /> Dashboard
             </li>
-            {/* <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
-              <BsImage /> Leagues
-            </li> */}
+            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
+              <BsTrophy /> Leagues
+            </li>
             <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
               <BsClockHistory /> History
+            </li>
+            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/70 cursor-pointer">
+              <BsQuestionCircleFill /> Help
             </li>
           </ul>
         </nav>
@@ -50,13 +59,13 @@ const Sidebar: React.FC<SidebarProps> = ({
           </p>
           <ul className="space-y-2">
             <li className="text-sm text-gray-700 truncate">
-              New Design Ideas for Work...
+              Best captain picks for...
             </li>
             <li className="text-sm text-gray-700 truncate">
-              Smoothie Recipe Suggesti...
+              Wildcard suggestions for gameweek...
             </li>
             <li className="text-sm text-gray-700 truncate">
-              Tips for Daily Productivi...
+              Best gameweek differentials for...
             </li>
           </ul>
           <button className="mt-3 text-sm text-green-600 font-medium cursor-pointer">

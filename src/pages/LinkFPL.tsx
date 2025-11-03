@@ -1,53 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../api/apiClient";
+import useFPL from "../hooks/useFPL";
 
 export default function LinkFPL() {
+  const { loading, error, linkFPL, isLinked } = useFPL();
   const [fplId, setFplId] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(true);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLink = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      const { response, error } = await apiClient.linkFPLTeam(parseInt(fplId));
-
-      if (error) {
-        if (error.response?.status === 400) {
-          setError("Invalid FPL Team ID");
-          return;
-        }
-
-        if (error.response?.status === 401) {
-          setError("Unauthorized");
-          return;
-        }
-
-        if (error.response?.status === 500) {
-          setError("Internal Server Error");
-          return;
-        }
-        setError(error.response?.data?.detail || "Failed to link FPL team");
-        return;
-      }
-
-      if (response?.status === 200) {
-        setSuccess(true);
-        setTimeout(() => navigate("/dashboard"), 2000);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to link FPL team");
-    } finally {
-      setLoading(false);
-    }
+    await linkFPL(parseInt(fplId));
   };
 
-  if (success) {
+  if (isLinked) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md text-center">

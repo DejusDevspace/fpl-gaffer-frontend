@@ -1,101 +1,33 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  MessageSquare,
-  TrendingUp,
-  // Users,
-  Settings,
-  LogOut,
-} from "lucide-react";
-import apiClient, { supabase } from "../api/apiClient";
+import useAuth from "../hooks/useAuth";
+import useFPL from "../hooks/useFPL";
+import { MessageSquare, TrendingUp, Settings, LogOut } from "lucide-react";
 import StatCard from "../components/StatCard";
 import RankChart from "../components/RankChart";
 import PointsChart from "../components/PointsChart";
 import TransfersChart from "../components/TransfersChart";
 
-interface DashboardData {
-  team: {
-    fpl_id: number;
-    team_name: string;
-    player_first_name: string;
-    player_last_name: string;
-    overall_rank: number;
-    overall_points: number;
-    current_gameweek: number;
-    total_transfers: number;
-    team_value: number;
-    bank: number;
-  };
-  current_gameweek: {
-    gameweek: number;
-    points: number;
-    total_points: number;
-    overall_rank: number;
-    event_transfers: number;
-  } | null;
-  gameweek_history: Array<{
-    gameweek: number;
-    points: number;
-    total_points: number;
-    overall_rank: number;
-    event_transfers: number;
-  }>;
-  transfer_history: Array<any>;
-  current_captain: {
-    player_name: string;
-  } | null;
-}
-
 export default function Dashboard() {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [syncing, setSyncing] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { loading, syncing, error, dashboardData, syncFPLData } = useFPL();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!data) {
-      loadDashboard();
-    }
-  }, []);
-
-  const loadDashboard = async () => {
-    try {
-      const dashboardData = await apiClient.getDashboard();
-      setData(dashboardData);
-    } catch (err: any) {
-      if (err.response?.status === 404) {
-        navigate("/link-fpl");
-      } else {
-        setError("Failed to load dashboard");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
+    await logout();
   };
 
   const handleSync = async (fpl_id: number) => {
     try {
-      setLoading(true);
-      setSyncing(true);
-      await apiClient.syncFPLData(fpl_id);
-      await loadDashboard();
+      await syncFPLData(fpl_id);
     } catch (err) {
-      setError("Failed to sync FPL data");
-    } finally {
-      setLoading(false);
+      console.error("Error syncing FPL data:", err);
     }
   };
 
   if (loading) {
     return (
       <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center">
-        <div className="flex flex-col justify-center items-center text-xl font-semibold text-gray-700">
+        <div className="flex flex-col justify-center items-center text-xl font-semibold text-primary">
           {syncing && (
             <span className="text-accent">
               Syncing FPL data. Please wait...
@@ -107,17 +39,14 @@ export default function Dashboard() {
     );
   }
 
-  if (error || !data) {
+  if (!dashboardData) {
     return (
       <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-xl font-semibold text-red-600 mb-4">
-            {error || "No data available"}
+          <div className="text-xl font-semibold text-error mb-4">
+            {error ? error : "No data available"}
           </div>
-          <button
-            onClick={() => navigate("/link-fpl")}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-          >
+          <button onClick={() => navigate("/link-fpl")} className="btn-primary">
             Link FPL Team
           </button>
         </div>
@@ -125,40 +54,41 @@ export default function Dashboard() {
     );
   }
 
-  const { team, current_gameweek, gameweek_history, current_captain } = data;
+  const { team, current_gameweek, gameweek_history, current_captain } =
+    dashboardData;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
       {/* TODO: To replace with sidebar */}
-      <nav className="bg-background/70 shadow-sm border-b sticky top-0 z-10">
+      <nav className="bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 ml-[-18rem] pl-72">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-primary">
               {team.team_name}
             </h1>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-muted">
               {team.player_first_name} {team.player_last_name}
             </p>
           </div>
           <div className="flex items-center gap-4">
             <Link
               to="/chat"
-              className="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+              className="flex items-center gap-2 text-primary hover:text-accent"
             >
               <MessageSquare size={20} />
               <span className="hidden sm:inline">Chat</span>
             </Link>
             <Link
               to="/settings"
-              className="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+              className="flex items-center gap-2 text-primary hover:text-accent"
             >
               <Settings size={20} />
               <span className="hidden sm:inline">Settings</span>
             </Link>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-gray-700 hover:text-red-600"
+              className="flex items-center gap-2 text-primary hover:text-error"
             >
               <LogOut size={20} />
               <span className="hidden sm:inline">Logout</span>
@@ -211,37 +141,41 @@ export default function Dashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-aux rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+        <div className="card">
+          <h3 className="text-lg font-semibold mb-4 text-primary">
+            Quick Actions
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link
               to="/chat"
-              className="flex items-center gap-3 p-4 bg-background/20 rounded-lg shadow-lg hover:bg-background/10 transition"
+              className="flex items-center gap-3 p-4 bg-surface/50 rounded-lg shadow-lg hover:bg-surface/70 transition"
             >
-              <MessageSquare className="text-blue-600" />
+              <MessageSquare className="text-accent" />
               <div>
-                <div className="font-semibold">Chat with Gaffer</div>
-                <div className="text-sm text-gray-600">Get AI advice</div>
+                <div className="font-semibold text-primary">
+                  Chat with Gaffer
+                </div>
+                <div className="text-sm text-muted">Get AI advice</div>
               </div>
             </Link>
             <button
-              onClick={() => handleSync(data.team.fpl_id)}
-              className="flex items-center gap-3 p-4 bg-background/20 rounded-lg shadow-lg hover:bg-background/10 cursor-pointer transition"
+              onClick={() => handleSync(dashboardData.team.fpl_id)}
+              className="flex items-center gap-3 p-4 bg-surface/50 rounded-lg shadow-lg hover:bg-surface/70 cursor-pointer transition"
             >
-              <TrendingUp className="text-green-600" />
+              <TrendingUp className="text-greenAccent" />
               <div>
-                <div className="font-semibold">Sync FPL Data</div>
-                <div className="text-sm text-gray-600">Update stats</div>
+                <div className="font-semibold text-primary">Sync FPL Data</div>
+                <div className="text-sm text-muted">Update stats</div>
               </div>
             </button>
             <Link
               to="/settings"
-              className="flex items-center gap-3 p-4 bg-background/20 rounded-lg shadow-lg hover:bg-background/10 cursor-pointer transition"
+              className="flex items-center gap-3 p-4 bg-surface/50 rounded-lg shadow-lg hover:bg-surface/70 cursor-pointer transition"
             >
-              <Settings className="text-accent/60" />
+              <Settings className="text-accent" />
               <div>
-                <div className="font-semibold">Settings</div>
-                <div className="text-sm text-gray-600">Manage account</div>
+                <div className="font-semibold text-primary">Settings</div>
+                <div className="text-sm text-muted">Manage account</div>
               </div>
             </Link>
           </div>

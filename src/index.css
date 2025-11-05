@@ -39,6 +39,7 @@
   --color-background: #0f0f23; /* Slightly lighter dark blue-purple for less harshness */
   --color-accent: #00d4ff; /* Brighter cyan for better visibility */
   --color-aux: #2a1b3d; /* Muted purple for cards/borders - softer than original */
+  --color-active: #06b6d4; /* Active state color - darker cyan for better contrast */
   --color-greenAccent: #4ade80; /* Lighter green for success (better on dark bg) */
   --color-error: #ef4444; /* Red for errors/warnings */
   --color-warning: #f59e0b; /* Amber for cautions */

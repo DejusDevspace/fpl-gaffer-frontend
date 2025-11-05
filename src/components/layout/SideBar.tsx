@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { FiSettings, FiHelpCircle, FiSun, FiMoon } from "react-icons/fi";
 import {
   BsChatLeftDots,
@@ -17,6 +18,11 @@ const Sidebar: React.FC<SidebarProps> = ({
   darkMode = false,
   onToggleTheme,
 }) => {
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
   return (
     <aside
       className={`fixed left-0 top-0 h-screen w-72 rounded-r-2xl border-r border-aux flex flex-col justify-between ${
@@ -34,29 +40,41 @@ const Sidebar: React.FC<SidebarProps> = ({
         {/* Menu */}
         <nav className="mt-4">
           <ul className="space-y-1">
-            <li className="px-6 py-2 flex items-center gap-3 font-medium bg-aux/80 rounded-r-full text-greenAccent cursor-pointer">
-              <BsChatLeftDots /> Chat with Gaffer
-            </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary">
+            <Link to="/chat">
+              <li className={`px-6 py-2 flex items-center gap-3 font-medium cursor-pointer rounded-r-full transition-colors ${
+                isActive('/chat')
+              ? 'bg-active/20 text-active border-r-4 border-active'
+            : 'hover:bg-aux/80 text-primary'
+        }`}>
+            <BsChatLeftDots /> Chat with Gaffer
+              </li>
+            </Link>
+
+            <Link to="/dashboard">
+        <li className={`px-6 py-2 flex items-center gap-3 cursor-pointer rounded-r-full transition-colors ${
+            isActive('/dashboard')
+              ? 'bg-active/20 text-active border-r-4 border-active'
+            : 'hover:bg-aux/80 text-primary'
+            }`}>
               <BsGraphDown /> Dashboard
             </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary">
-              <BsTrophy /> Leagues
-            </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary">
-              <BsClockHistory /> History
-            </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary">
-              <BsQuestionCircleFill /> Help
-            </li>
-          </ul>
+            </Link>
+
+            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
+          <BsTrophy /> Leagues
+        </li>
+        <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
+        <BsClockHistory /> History
+        </li>
+        <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
+        <BsQuestionCircleFill /> Help
+        </li>
+        </ul>
         </nav>
 
         {/* Recent Chat Section */}
         <div className="mt-6 border-t border-aux pt-4 px-6">
-          <p className="text-sm font-semibold mb-2 text-muted">
-            Recent Chat
-          </p>
+          <p className="text-sm font-semibold mb-2 text-muted">Recent Chat</p>
           <ul className="space-y-2">
             <li className="text-sm text-primary truncate">
               Best captain picks for...

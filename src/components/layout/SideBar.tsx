@@ -61,14 +61,20 @@ const Sidebar: React.FC<SidebarProps> = ({
             </Link>
 
             <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
-          <BsTrophy /> Leagues
-        </li>
-        <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
-        <BsClockHistory /> History
-        </li>
-        <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
-        <BsQuestionCircleFill /> Help
-        </li>
+              <BsTrophy /> Leagues
+            </li>
+            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
+              <BsClockHistory /> History
+            </li>
+            <Link to="/help">
+              <li className={`px-6 py-2 flex items-center gap-3 cursor-pointer rounded-r-full transition-colors ${
+                isActive('/help')
+                  ? 'bg-active/20 text-active border-r-4 border-active'
+                  : 'hover:bg-aux/80 text-primary'
+              }`}>
+                <BsQuestionCircleFill /> Help
+              </li>
+            </Link>
         </ul>
         </nav>
 

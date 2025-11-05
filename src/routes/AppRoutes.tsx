@@ -7,6 +7,7 @@ import {
   LinkFPL,
   Dashboard,
   Settings,
+  Help,
 } from "../pages";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -45,6 +46,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Settings />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/help"
+        element={
+          <ProtectedRoute>
+            <Help />
           </ProtectedRoute>
         }
       />

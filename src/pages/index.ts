@@ -5,5 +5,6 @@ import SignUp from "./SignUp";
 import LinkFPL from "./LinkFPL";
 import Dashboard from "./Dashboard";
 import Settings from "./Settings";
+import Help from "./Help";
 
-export { Home, Login, SignUp, Chat, Dashboard, LinkFPL, Settings };
+export { Home, Login, SignUp, Chat, Dashboard, LinkFPL, Settings, Help };

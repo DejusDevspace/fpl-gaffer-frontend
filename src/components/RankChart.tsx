@@ -1,6 +1,4 @@
 import {
-  LineChart,
-  Line,
   Area,
   AreaChart,
   XAxis,
@@ -8,7 +6,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
 
 interface RankChartProps {
@@ -45,11 +42,22 @@ export default function RankChart({ data }: RankChartProps) {
         📈 Rank Progression
       </h3>
       <ResponsiveContainer width="100%" height={300}>
-        <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <AreaChart
+          data={chartData}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
           <defs>
             <linearGradient id="rankGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="var(--color-accent)" stopOpacity={0.3}/>
-              <stop offset="95%" stopColor="var(--color-accent)" stopOpacity={0.1}/>
+              <stop
+                offset="5%"
+                stopColor="var(--color-accent)"
+                stopOpacity={0.3}
+              />
+              <stop
+                offset="95%"
+                stopColor="var(--color-accent)"
+                stopOpacity={0.1}
+              />
             </linearGradient>
           </defs>
           <CartesianGrid
@@ -81,13 +89,13 @@ export default function RankChart({ data }: RankChartProps) {
               fill: "var(--color-accent)",
               strokeWidth: 2,
               stroke: "var(--color-surface)",
-              r: 4
+              r: 4,
             }}
             activeDot={{
               r: 6,
               fill: "var(--color-accent)",
               stroke: "var(--color-surface)",
-              strokeWidth: 2
+              strokeWidth: 2,
             }}
           />
         </AreaChart>

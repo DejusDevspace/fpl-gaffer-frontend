@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useAuth from "./hooks/useAuth";
 import AppRoutes from "./routes/AppRoutes";
 import SideBar from "./components/layout/SideBar";

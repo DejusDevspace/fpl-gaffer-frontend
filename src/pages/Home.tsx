@@ -7,15 +7,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center p-4 min-h-screen">
+      <div className="flex flex-col items-center justify-center p-4 py-20">
         <div className="text-center max-w-2xl">
           <div className="mb-8">
-            <h1 className="text-5xl font-bold text-primary mb-4">
+            <h1 className="text-4xl font-bold text-primary mb-4">
               FPL <span className="text-accent">Gaffer ⚽</span>
             </h1>
-            <p className="text-xl text-primary/45 mb-8">
-              Your AI-powered Fantasy Premier League co-manager with insights,
-              analytics, and personalized advice
+            <p className="text-lg text-primary/60 mb-8">
+              AI-powered Fantasy Premier League insights and advice
             </p>
           </div>
 
@@ -56,6 +55,15 @@ export default function Home() {
               </>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="flex justify-center pb-8">
+        <div className="animate-bounce">
+          <svg className="w-6 h-6 text-primary/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </div>
 

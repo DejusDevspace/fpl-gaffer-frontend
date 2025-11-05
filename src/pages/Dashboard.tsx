@@ -61,7 +61,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
       {/* TODO: To replace with sidebar */}
-      <nav className="bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 ml-[-18rem] pl-72">
+      <nav className="bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 -ml-72 pl-72">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold text-primary">

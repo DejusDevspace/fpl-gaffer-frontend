@@ -40,7 +40,14 @@ const AppRoutes = () => {
         }
       />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/settings" element={<Settings />} />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };

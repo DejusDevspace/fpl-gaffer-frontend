@@ -22,20 +22,20 @@ export default function TransfersChart({ data }: TransfersChartProps) {
   }));
 
   return (
-    <div className="bg-aux rounded-lg shadow p-6">
-      <h3 className="text-lg font-semibold mb-4">Transfers Per Gameweek</h3>
+    <div className="card">
+      <h3 className="text-lg font-semibold mb-4 text-primary">Transfers Per Gameweek</h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="gw" />
-          <YAxis />
-          <Tooltip />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-aux)" />
+          <XAxis dataKey="gw" stroke="var(--color-primary)" />
+          <YAxis stroke="var(--color-primary)" />
+          <Tooltip contentStyle={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-aux)', color: 'var(--color-primary)' }} />
           <Line
             type="stepAfter"
             dataKey="transfers"
-            stroke="#f59e0b"
+            stroke="var(--color-warning)"
             strokeWidth={2}
-            dot={{ fill: "#f59e0b" }}
+            dot={{ fill: "var(--color-warning)" }}
           />
         </LineChart>
       </ResponsiveContainer>

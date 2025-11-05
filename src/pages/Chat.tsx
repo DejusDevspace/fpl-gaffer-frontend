@@ -95,20 +95,18 @@ export default function Chat() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b p-4 flex items-center gap-4">
+      <div className="bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 ml-[-18rem] pl-72">
         <button
           onClick={() => navigate("/dashboard")}
-          className="text-gray-600 hover:text-gray-900"
+          className="text-muted hover:text-primary ml-2"
         >
           <ArrowLeft size={24} />
         </button>
         <div>
-          <h1 className="text-xl font-bold text-gray-900">Chat with Gaffer</h1>
-          {fplTeam && (
-            <p className="text-sm text-gray-600">{fplTeam.team_name}</p>
-          )}
+          <h1 className="text-xl font-bold text-primary">Chat with Gaffer</h1>
+          {fplTeam && <p className="text-sm text-muted">{fplTeam.team_name}</p>}
         </div>
       </div>
 
@@ -124,14 +122,14 @@ export default function Chat() {
             <div
               className={`max-w-[80%] rounded-lg px-4 py-3 ${
                 msg.role === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-white shadow text-gray-900"
+                  ? "bg-accent text-primary"
+                  : "bg-surface border border-aux shadow text-primary"
               }`}
             >
               <p className="whitespace-pre-wrap">{msg.content}</p>
               <p
                 className={`text-xs mt-2 ${
-                  msg.role === "user" ? "text-blue-100" : "text-gray-500"
+                  msg.role === "user" ? "text-primary/70" : "text-muted"
                 }`}
               >
                 {msg.timestamp.toLocaleTimeString()}
@@ -141,11 +139,11 @@ export default function Chat() {
         ))}
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-white shadow rounded-lg px-4 py-3">
+            <div className="bg-surface border border-aux shadow rounded-lg px-4 py-3">
               <div className="flex gap-2">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100" />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200" />
+                <div className="w-2 h-2 bg-neutral rounded-full animate-bounce" />
+                <div className="w-2 h-2 bg-neutral rounded-full animate-bounce delay-100" />
+                <div className="w-2 h-2 bg-neutral rounded-full animate-bounce delay-200" />
               </div>
             </div>
           </div>
@@ -154,7 +152,7 @@ export default function Chat() {
       </div>
 
       {/* Input */}
-      <div className="bg-white border-t p-4">
+      <div className="bg-surface border-t border-aux p-4">
         <div className="max-w-4xl mx-auto flex gap-2">
           <input
             type="text"
@@ -163,17 +161,17 @@ export default function Chat() {
             onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
             placeholder="Ask about transfers, captains, strategy..."
             disabled={loading}
-            className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+            className="flex-1 border border-aux bg-surface text-primary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent disabled:bg-neutral"
           />
           <button
             onClick={handleSend}
             disabled={loading || !message.trim()}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white p-3 rounded-lg transition"
+            className="btn-primary disabled:bg-neutral p-3 rounded-lg transition"
           >
             <Send size={20} />
           </button>
         </div>
-        <p className="text-xs text-gray-500 text-center mt-2">
+        <p className="text-xs text-muted text-center mt-2">
           Gaffer has access to your team stats and current gameweek
         </p>
       </div>

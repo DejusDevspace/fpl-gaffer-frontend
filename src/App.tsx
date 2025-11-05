@@ -8,14 +8,14 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="flex">
+    <div>
       {authenticated && (
         <SideBar
           darkMode={darkMode}
           onToggleTheme={() => setDarkMode(!darkMode)}
         />
       )}
-      <main className="flex-1">
+      <main className={authenticated ? "ml-72" : ""}>
         <AppRoutes />
       </main>
     </div>

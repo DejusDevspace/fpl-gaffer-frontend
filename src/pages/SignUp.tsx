@@ -19,7 +19,7 @@ export default function SignUp() {
   if (success) {
     return (
       <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center p-4">
-        <div className="bg-aux/50 rounded-lg shadow-md p-8 w-full max-w-md text-center">
+        <div className="bg-surface rounded-lg shadow-xl p-8 w-full max-w-md text-center">
           <div className="text-greenAccent text-5xl mb-4">✓</div>
           <h2 className="text-2xl font-bold text-accent/80 mb-4">
             Account Created!
@@ -32,13 +32,13 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center p-4">
-      <div className="bg-aux/50 rounded-lg shadow-md p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-primary/60 mb-6">
+      <div className="bg-surface rounded-lg shadow-xl p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold text-primary mb-6">
           Sign Up for FPL Gaffer
         </h1>
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <div className="bg-error/20 border border-error text-error px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
@@ -77,8 +77,7 @@ export default function SignUp() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-accent/80 hover:bg-accent/60 hover:scale-105 disabled:bg-gray-400 text-white
-            font-semibold py-2 px-4 rounded-lg cursor-pointer transition"
+            className="w-full btn-primary disabled:bg-neutral text-white font-semibold py-2 px-4 rounded-lg cursor-pointer transition-all duration-300"
           >
             {loading ? "Creating account..." : "Sign Up"}
           </button>

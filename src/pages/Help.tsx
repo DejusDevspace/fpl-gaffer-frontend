@@ -197,7 +197,7 @@ const Help = () => {
             Still need help?
           </h3>
           <p className="text-primary/75 mb-4">
-            Can't find what you're looking for? Reach out to our support team.
+            Can't find what you're looking for? Reach out with your questions.
           </p>
           <button className="btn-primary">Contact Support</button>
         </div>

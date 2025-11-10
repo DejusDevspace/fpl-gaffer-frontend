@@ -212,7 +212,7 @@ export default function Chat() {
             placeholder="Ask about transfers, captains, strategy..."
             disabled={loading}
             rows={1}
-            className="flex-1 border border-aux bg-surface text-primary/15
+            className="flex-1 border border-aux bg-surface text-primary placeholder:text-primary/15
             rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent
             disabled:bg-neutral resize-none overflow-hidden max-h-[200px]"
           />

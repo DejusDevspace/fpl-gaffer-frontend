@@ -165,7 +165,9 @@ export default function Chat() {
                     key={idx}
                     onClick={() => handleSend(q)}
                     disabled={loading}
-                    className="p-4 rounded-lg bg-surface border border-aux hover:border-accent hover:bg-surface/80 transition disabled:opacity-50 text-primary text-left font-medium hover:shadow-lg"
+                    className="p-4 rounded-lg bg-surface border border-aux
+                    hover:border-accent hover:bg-surface/80 transition disabled:opacity-50
+                    text-primary text-left font-medium hover:shadow-lg"
                   >
                     {q}
                   </button>
@@ -204,7 +206,9 @@ export default function Chat() {
             placeholder="Ask about transfers, captains, strategy..."
             disabled={loading}
             rows={1}
-            className="flex-1 border border-aux bg-surface text-primary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent disabled:bg-neutral resize-none overflow-hidden max-h-[200px]"
+            className="flex-1 border border-aux bg-surface text-primary/15
+            rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent
+            disabled:bg-neutral resize-none overflow-hidden max-h-[200px]"
           />
           <button
             onClick={(e) => {

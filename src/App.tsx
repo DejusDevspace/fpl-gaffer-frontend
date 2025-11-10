@@ -9,12 +9,7 @@ function App() {
 
   return (
     <div>
-      {authenticated && (
-        <SideBar
-          darkMode={darkMode}
-          onToggleTheme={() => setDarkMode(!darkMode)}
-        />
-      )}
+      {authenticated && <SideBar />}
       <main className={authenticated ? "ml-72" : ""}>
         <AppRoutes />
       </main>

@@ -1,6 +1,5 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FiSettings, FiHelpCircle, FiSun, FiMoon } from "react-icons/fi";
+import { FiSettings } from "react-icons/fi";
 import {
   BsChatLeftDots,
   BsClockHistory,
@@ -9,26 +8,15 @@ import {
   BsQuestionCircleFill,
 } from "react-icons/bs";
 
-interface SidebarProps {
-  darkMode?: boolean;
-  onToggleTheme?: () => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({
-  darkMode = false,
-  onToggleTheme,
-}) => {
+const Sidebar = () => {
   const location = useLocation();
 
   const isActive = (path: string) => {
     return location.pathname === path;
   };
+
   return (
-    <aside
-      className={`fixed left-0 top-0 h-screen w-72 rounded-r-2xl border-r border-aux flex flex-col justify-between ${
-        darkMode ? "bg-gray-900 text-white" : "bg-surface text-primary"
-      }`}
-    >
+    <aside className="fixed left-0 top-0 h-screen w-72 rounded-r-2xl border-r border-aux flex flex-col justify-between bg-surface text-primary">
       {/* Top Section */}
       <div>
         {/* Logo */}
@@ -37,50 +25,53 @@ const Sidebar: React.FC<SidebarProps> = ({
           <h1 className="text-lg font-semibold text-primary">FPL Gaffer</h1>
         </div>
 
-        {/* Menu */}
-        <nav className="mt-4">
-          <ul className="space-y-1">
-            <Link to="/chat">
-              <li className={`px-6 py-2 flex items-center gap-3 font-medium cursor-pointer rounded-r-full transition-colors ${
-                isActive('/chat')
-              ? 'bg-active/20 text-active border-r-4 border-active'
-            : 'hover:bg-aux/80 text-primary'
-        }`}>
-            <BsChatLeftDots /> Chat with Gaffer
-              </li>
-            </Link>
+        {/* Menu Section */}
+        <div className="mt-6">
+          <p className="text-xs font-semibold uppercase px-6 text-muted mb-3">
+            Menu
+          </p>
+          <nav>
+            <ul className="space-y-1">
+              <Link to="/chat">
+                <li
+                  className={`px-6 py-2 flex items-center gap-3 font-medium cursor-pointer rounded-r-full transition-colors ${
+                    isActive("/chat")
+                      ? "bg-active/20 text-active border-r-4 border-active"
+                      : "hover:bg-aux/80 text-primary"
+                  }`}
+                >
+                  <BsChatLeftDots /> Chat with Gaffer
+                </li>
+              </Link>
 
-            <Link to="/dashboard">
-        <li className={`px-6 py-2 flex items-center gap-3 cursor-pointer rounded-r-full transition-colors ${
-            isActive('/dashboard')
-              ? 'bg-active/20 text-active border-r-4 border-active'
-            : 'hover:bg-aux/80 text-primary'
-            }`}>
-              <BsGraphDown /> Dashboard
-            </li>
-            </Link>
+              <Link to="/dashboard">
+                <li
+                  className={`px-6 py-2 flex items-center gap-3 cursor-pointer rounded-r-full transition-colors ${
+                    isActive("/dashboard")
+                      ? "bg-active/20 text-active border-r-4 border-active"
+                      : "hover:bg-aux/80 text-primary"
+                  }`}
+                >
+                  <BsGraphDown /> Dashboard
+                </li>
+              </Link>
 
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
-              <BsTrophy /> Leagues
-            </li>
-            <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
-              <BsClockHistory /> History
-            </li>
-            <Link to="/help">
-              <li className={`px-6 py-2 flex items-center gap-3 cursor-pointer rounded-r-full transition-colors ${
-                isActive('/help')
-                  ? 'bg-active/20 text-active border-r-4 border-active'
-                  : 'hover:bg-aux/80 text-primary'
-              }`}>
-                <BsQuestionCircleFill /> Help
+              <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
+                <BsTrophy /> Leagues
               </li>
-            </Link>
-        </ul>
-        </nav>
+
+              <li className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors">
+                <BsClockHistory /> History
+              </li>
+            </ul>
+          </nav>
+        </div>
 
         {/* Recent Chat Section */}
         <div className="mt-6 border-t border-aux pt-4 px-6">
-          <p className="text-sm font-semibold mb-2 text-muted">Recent Chat</p>
+          <p className="text-xs font-semibold uppercase text-muted mb-3">
+            Recent Chat
+          </p>
           <ul className="space-y-2">
             <li className="text-sm text-primary truncate">
               Best captain picks for...
@@ -98,44 +89,24 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
 
-      {/* Bottom Section */}
-      <div className="border-t border-aux px-6 py-4 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 text-primary">
-            <FiSettings /> <span>Settings</span>
-          </div>
-          <div className="flex items-center gap-3 text-primary">
-            <FiHelpCircle /> <span>Help</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between mt-4">
-          <button
-            onClick={onToggleTheme}
-            className="flex items-center gap-2 text-sm font-medium text-primary"
-          >
-            {darkMode ? (
-              <>
-                <FiSun /> <span>Light</span>
-              </>
-            ) : (
-              <>
-                <FiMoon /> <span>Dark</span>
-              </>
-            )}
-          </button>
-        </div>
-
-        <div className="flex items-center gap-3 mt-4">
-          <img
-            src="https://i.pravatar.cc/40"
-            alt="User avatar"
-            className="w-8 h-8 rounded-full"
-          />
-          <div>
-            <p className="text-sm font-semibold text-primary">Jenny Wilson</p>
-            <p className="text-xs text-muted">jenny@gmail.com</p>
-          </div>
+      {/* Bottom Section - Settings & Help */}
+      <div className="border-t border-aux px-6 py-4">
+        <div>
+          <p className="text-xs font-semibold uppercase mb-3 text-muted">
+            Settings & Help
+          </p>
+          <ul className="space-y-1">
+            <Link to="/settings">
+              <li className="px-3 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-lg transition-colors">
+                <FiSettings size={18} /> <span>Settings</span>
+              </li>
+            </Link>
+            <Link to="/help">
+              <li className="px-3 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-lg transition-colors">
+                <BsQuestionCircleFill size={18} /> <span>Help</span>
+              </li>
+            </Link>
+          </ul>
         </div>
       </div>
     </aside>

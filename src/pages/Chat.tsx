@@ -9,6 +9,13 @@ interface Message {
   timestamp: Date;
 }
 
+const DEMO_QUESTIONS = [
+  "What transfers should I make this week?",
+  "Who should be my captain?",
+  "Analyze my team's performance",
+  "What's my best strategy going forward?",
+];
+
 export default function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -36,26 +43,20 @@ export default function Chat() {
   };
 
   const loadInitialMessage = () => {
-    setMessages([
-      {
-        role: "assistant",
-        content:
-          "Hello! I'm your FPL Gaffer. I can help you with transfer suggestions, captain picks, team analysis, and strategy advice. What would you like to discuss about your team?",
-        timestamp: new Date(),
-      },
-    ]);
+    setMessages([]);
   };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSend = async () => {
-    if (!message.trim() || loading) return;
+  const handleSend = async (textToSend?: string) => {
+    const textContent = textToSend || message;
+    if (!textContent.trim() || loading) return;
 
     const userMessage: Message = {
       role: "user",
-      content: message,
+      content: textContent,
       timestamp: new Date(),
     };
 
@@ -65,9 +66,9 @@ export default function Chat() {
 
     try {
       // Add FPL context to message if available
-      let contextualMessage = message;
+      let contextualMessage = textContent;
       if (fplTeam) {
-        contextualMessage = `[User's FPL Team: ${fplTeam.team_name}, Current GW: ${fplTeam.current_gameweek}, Overall Rank: ${fplTeam.overall_rank}, Points: ${fplTeam.overall_points}]\n\n${message}`;
+        contextualMessage = `[User's FPL Team: ${fplTeam.team_name}, Current GW: ${fplTeam.current_gameweek}, Overall Rank: ${fplTeam.overall_rank}, Points: ${fplTeam.overall_points}]\n\n${textContent}`;
       }
 
       const response = await apiClient.chat(contextualMessage);
@@ -97,7 +98,7 @@ export default function Chat() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 ml-[-18rem] pl-72">
+      <div className="bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 -ml-72 pl-72">
         <button
           onClick={() => navigate("/dashboard")}
           className="text-muted hover:text-primary ml-2"
@@ -137,6 +138,33 @@ export default function Chat() {
             </div>
           </div>
         ))}
+
+        {messages.length === 0 && (
+          <div className="flex-1 flex items-center justify-center">
+            <div className="space-y-6 text-center max-w-2xl">
+              <div>
+                <h2 className="text-2xl font-bold text-accent mb-2">
+                  What would you like to know?
+                </h2>
+                <p className="text-sm text-muted">
+                  Tap a question below or ask your own
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {DEMO_QUESTIONS.map((q, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSend(q)}
+                    disabled={loading}
+                    className="p-4 rounded-lg bg-surface border border-aux hover:border-accent hover:bg-surface/80 transition disabled:opacity-50 text-primary text-left font-medium hover:shadow-lg"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
         {loading && (
           <div className="flex justify-start">
             <div className="bg-surface border border-aux shadow rounded-lg px-4 py-3">
@@ -164,7 +192,10 @@ export default function Chat() {
             className="flex-1 border border-aux bg-surface text-primary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent disabled:bg-neutral"
           />
           <button
-            onClick={handleSend}
+            onClick={(e) => {
+              e.preventDefault();
+              handleSend();
+            }}
             disabled={loading || !message.trim()}
             className="btn-primary disabled:bg-neutral p-3 rounded-lg transition"
           >

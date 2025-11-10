@@ -20,14 +20,14 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-screen rounded-r-2xl border-r border-aux flex flex-col justify-between bg-surface text-primary transition-all duration-300 z-30 ${
+      className={`fixed left-0 top-0 h-screen border-r border-aux flex flex-col justify-between bg-surface text-primary transition-all duration-300 z-30 ${
         isOpen ? "w-72" : "w-20"
       }`}
     >
       {/* Top Section */}
       <div>
         {/* Logo */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-aux">
+        <div className="flex items-center justify-between px-6 py-7 border-b border-aux">
           {isOpen && (
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-md bg-accent/50"></div>

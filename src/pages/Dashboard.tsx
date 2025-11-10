@@ -62,7 +62,6 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
-      {/* TODO: To replace with sidebar */}
       <nav
         className={`bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 transition-all duration-300 ${
           isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"

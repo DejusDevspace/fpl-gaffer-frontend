@@ -110,7 +110,7 @@ export default function Chat() {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <div
-        className={`bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 transition-all duration-300 ${
+        className={`bg-surface shadow-sm border-b border-aux h-[85px] p-2 flex items-center gap-4 transition-all duration-300 ${
           isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"
         }`}
       >

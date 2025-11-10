@@ -88,11 +88,11 @@ export default function Settings() {
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
       <div
-        className={`bg-surface/70 backdrop-blur-sm border-b border-aux sticky top-0 z-20 transition-all duration-300 ${
+        className={`bg-surface/70 backdrop-blur-sm border-b border-aux sticky top-0 z-20 h-[85px] p-4 transition-all duration-300 ${
           isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"
         }`}
       >
-        <div className="max-w-5xl mx-auto px-6 py-6 flex items-center gap-4">
+        <div className="max-w-5xl mx-auto ml-2 flex items-center gap-4">
           <button
             onClick={() => navigate("/dashboard")}
             className="text-muted hover:text-accent transition-colors p-2"

@@ -1,13 +1,28 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { ArrowLeft, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  ArrowLeft,
+  Trash2,
+  Link as LinkIcon,
+  LogOut,
+  AlertCircle,
+  Shield,
+  Clock,
+  User,
+  Trophy,
+  RefreshCw,
+} from "lucide-react";
 import useAuth from "../hooks/useAuth";
 import useFPL from "../hooks/useFPL";
+import { useSidebar } from "../hooks/useSidebar";
 
 export default function Settings() {
-  const { loading, fplTeam, unlinkFPL, getFPLTeam } = useFPL();
+  const { loading, syncing, fplTeam, unlinkFPL, getFPLTeam, syncFPLData } =
+    useFPL();
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const { isOpen } = useSidebar();
+  const [syncError, setSyncError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!fplTeam) {
@@ -51,71 +66,155 @@ export default function Settings() {
     }
   };
 
+  const handleSyncFPL = async () => {
+    if (!fplTeam) return;
+    setSyncError(null);
+    try {
+      await syncFPLData(fplTeam.fpl_id);
+    } catch (error) {
+      setSyncError("Failed to sync FPL data. Please try again.");
+    }
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-xl">Loading settings...</div>
+      <div className="min-h-screen bg-linear-to-br from-background to-accent/50 flex items-center justify-center">
+        <div className="text-xl text-primary">Loading settings...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
-      <div className="bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 -ml-72 pl-72">
-        <button
-          onClick={() => navigate("/dashboard")}
-          className="text-muted hover:text-primary ml-2"
-        >
-          <ArrowLeft size={24} />
-        </button>
-        <h1 className="text-xl font-bold text-primary">Settings</h1>
+      <div
+        className={`bg-surface/70 backdrop-blur-sm border-b border-aux sticky top-0 z-20 transition-all duration-300 ${
+          isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"
+        }`}
+      >
+        <div className="max-w-5xl mx-auto px-6 py-6 flex items-center gap-4">
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="text-muted hover:text-accent transition-colors p-2"
+          >
+            <ArrowLeft size={24} />
+          </button>
+          <div>
+            <h1 className="text-3xl font-bold text-primary">Settings</h1>
+            <p className="text-sm text-muted mt-1">
+              Manage your account and FPL team
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-6 space-y-6">
-        {/* FPL Team Info */}
-        <div className="card">
-          <h2 className="text-lg font-semibold mb-4 text-primary">FPL Team</h2>
+      {/* Main Content */}
+      <div className="max-w-5xl mx-auto px-6 py-8 space-y-8">
+        {/* FPL Team Section */}
+        <div className="card border border-aux/50 shadow-lg">
+          <div className="flex items-center gap-3 mb-6 pb-6 border-b border-aux/30">
+            <Trophy className="text-accent" size={24} />
+            <div>
+              <h2 className="text-2xl font-bold text-primary">FPL Team</h2>
+              <p className="text-sm text-muted">
+                Your Fantasy Premier League account
+              </p>
+            </div>
+          </div>
+
           {fplTeam ? (
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-accent">Team Name:</span>
-                <span className="font-semibold text-primary">
-                  {fplTeam.team_name}
-                </span>
+            <div className="space-y-6">
+              {/* Team Info Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-surface/50 rounded-lg p-4 border border-aux/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Trophy size={16} className="text-accent" />
+                    <span className="text-xs font-semibold uppercase text-muted">
+                      Team Name
+                    </span>
+                  </div>
+                  <p className="text-lg font-bold text-primary">
+                    {fplTeam.team_name}
+                  </p>
+                </div>
+
+                <div className="bg-surface/50 rounded-lg p-4 border border-aux/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <User size={16} className="text-accent" />
+                    <span className="text-xs font-semibold uppercase text-muted">
+                      Manager
+                    </span>
+                  </div>
+                  <p className="text-lg font-bold text-primary">
+                    {fplTeam.player_first_name} {fplTeam.player_last_name}
+                  </p>
+                </div>
+
+                <div className="bg-surface/50 rounded-lg p-4 border border-aux/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <LinkIcon size={16} className="text-greenAccent" />
+                    <span className="text-xs font-semibold uppercase text-muted">
+                      FPL ID
+                    </span>
+                  </div>
+                  <p className="text-lg font-mono font-bold text-primary">
+                    {fplTeam.fpl_id}
+                  </p>
+                </div>
+
+                <div className="bg-surface/50 rounded-lg p-4 border border-aux/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Clock size={16} className="text-warning" />
+                    <span className="text-xs font-semibold uppercase text-muted">
+                      Last Synced
+                    </span>
+                  </div>
+                  <p className="text-lg font-bold text-primary">
+                    {new Date(fplTeam.last_synced_at).toLocaleDateString()}
+                  </p>
+                  <p className="text-xs text-muted mt-1">
+                    {new Date(fplTeam.last_synced_at).toLocaleTimeString()}
+                  </p>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted">Manager:</span>
-                <span className="font-semibold text-accent">
-                  {fplTeam.player_first_name} {fplTeam.player_last_name}
-                </span>
+
+              {/* Sync Error Message */}
+              {syncError && (
+                <div className="bg-error/10 border border-error/30 rounded-lg p-3 flex items-center gap-2">
+                  <AlertCircle size={16} className="text-error shrink-0" />
+                  <p className="text-sm text-error">{syncError}</p>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-3">
+                <button
+                  onClick={handleSyncFPL}
+                  disabled={syncing}
+                  className="flex-1 bg-greenAccent/10 hover:bg-greenAccent/20 disabled:opacity-50 text-greenAccent py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 border border-greenAccent/30 font-semibold"
+                >
+                  <RefreshCw
+                    size={18}
+                    className={syncing ? "animate-spin" : ""}
+                  />
+                  {syncing ? "Syncing..." : "Sync FPL Data"}
+                </button>
+                <button
+                  onClick={handleUnlinkFPL}
+                  className="flex-1 bg-error/10 hover:bg-error/20 text-error py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 border border-error/30 font-semibold"
+                >
+                  <Trash2 size={18} />
+                  Unlink
+                </button>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted">FPL ID:</span>
-                <span className="font-semibold text-accent">
-                  {fplTeam.fpl_id}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted">Last Synced:</span>
-                <span className="font-semibold text-accent">
-                  {new Date(fplTeam.last_synced_at).toLocaleString()}
-                </span>
-              </div>
-              <button
-                onClick={handleUnlinkFPL}
-                className="w-full mt-4 bg-error hover:bg-red-700 text-white py-2 px-4 rounded-lg transition flex items-center justify-center gap-2"
-              >
-                <Trash2 size={16} />
-                Unlink FPL Team
-              </button>
             </div>
           ) : (
-            <div className="text-center py-4">
-              <p className="text-muted mb-4">No FPL team linked</p>
+            <div className="text-center py-8">
+              <AlertCircle className="mx-auto mb-4 text-warning" size={48} />
+              <p className="text-muted mb-6">No FPL team linked</p>
               <button
                 onClick={() => navigate("/link-fpl")}
-                className="btn-primary"
+                className="btn-primary inline-block"
               >
                 Link FPL Team
               </button>
@@ -123,34 +222,35 @@ export default function Settings() {
           )}
         </div>
 
-        {/* Account Settings */}
-        <div className="card">
-          <h2 className="text-lg font-semibold mb-4 text-primary">Account</h2>
-          <div className="space-y-4">
+        {/* Account Settings Section */}
+        <div className="card border border-aux/50 shadow-lg">
+          <div className="flex items-center gap-3 mb-6 pb-6 border-b border-aux/30">
+            <Shield className="text-accent" size={24} />
+            <div>
+              <h2 className="text-2xl font-bold text-primary">Account</h2>
+              <p className="text-sm text-muted">
+                Security and session management
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
             <button
               onClick={async () => {
                 await logout();
               }}
-              className="w-full bg-neutral hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition"
+              className="w-full bg-neutral/10 hover:bg-neutral/20 text-neutral py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 border border-neutral/30 font-semibold"
             >
+              <LogOut size={18} />
               Sign Out
             </button>
             <button
               onClick={handleDeleteAccount}
-              className="w-full bg-error hover:bg-red-700 text-white py-2 px-4 rounded-lg transition"
+              className="w-full bg-error/10 hover:bg-error/20 text-error py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 border border-error/30 font-semibold"
             >
+              <AlertCircle size={18} />
               Delete Account
             </button>
-          </div>
-        </div>
-
-        {/* About */}
-        <div className="card">
-          <h2 className="text-lg font-semibold mb-4 text-primary">About</h2>
-          <div className="space-y-2 text-sm text-muted">
-            <p>FPL Gaffer - Your AI Fantasy Premier League Assistant</p>
-            <p>Version 0.1.0</p>
-            <p>Built with React, FastAPI, and Supabase</p>
           </div>
         </div>
       </div>

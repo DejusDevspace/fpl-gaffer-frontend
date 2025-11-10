@@ -151,14 +151,20 @@ const Sidebar = () => {
         )}
         <ul className="space-y-1">
           <Link to="/settings" title="Settings">
-            <li className="px-3 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-lg transition-colors">
-              <FiSettings size={18} />
+            <li
+              className={`py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-lg
+            transition-colors ${!isOpen ? "justify-center" : ""}`}
+            >
+              <FiSettings size={20} />
               {isOpen && <span>Settings</span>}
             </li>
           </Link>
           <Link to="/help" title="Help">
-            <li className="px-3 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-lg transition-colors">
-              <BsQuestionCircleFill size={18} />
+            <li
+              className={`py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-lg
+            transition-colors ${!isOpen ? "justify-center" : ""}`}
+            >
+              <BsQuestionCircleFill size={20} />
               {isOpen && <span>Help</span>}
             </li>
           </Link>

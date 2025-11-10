@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FiSettings, FiChevronLeft } from "react-icons/fi";
+import { FiSettings, FiChevronRight } from "react-icons/fi";
+import { MessageSquare } from "lucide-react";
 import {
   BsChatLeftDots,
   BsClockHistory,
@@ -38,10 +39,10 @@ const Sidebar = () => {
             className="text-primary hover:text-accent transition-colors p-1 z-20"
             title={isOpen ? "Collapse" : "Expand"}
           >
-            <FiChevronLeft
+            <FiChevronRight
               size={20}
               className={`transition-transform duration-300 ${
-                isOpen ? "" : "rotate-180"
+                isOpen ? "rotate-180" : ""
               }`}
             />
           </button>
@@ -103,22 +104,38 @@ const Sidebar = () => {
 
         {/* Recent Chat Section */}
         {isOpen && (
-          <div className="mt-6 border-t border-aux pt-4 px-6">
-            <p className="text-xs font-semibold uppercase text-muted mb-3">
-              Recent Chat
-            </p>
-            <ul className="space-y-2">
-              <li className="text-sm text-primary truncate">
-                Best captain picks for...
+          <div className="mt-6 border-t border-aux pt-4 px-6 flex-1 flex flex-col">
+            <p className="text-xs font-semibold text-muted mb-3">Recent Chat</p>
+            <ul className="space-y-2 flex-1">
+              <li className="p-3 rounded-lg bg-aux/30 hover:bg-aux/50 cursor-pointer transition-colors flex items-start gap-2">
+                <MessageSquare size={18} className="mt-2" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-primary truncate">
+                    Best captain picks for...
+                  </p>
+                  <p className="text-xs text-muted mt-1">Just now</p>
+                </div>
               </li>
-              <li className="text-sm text-primary truncate">
-                Wildcard suggestions for gameweek...
+              <li className="p-3 rounded-lg bg-aux/30 hover:bg-aux/50 cursor-pointer transition-colors flex items-start gap-2">
+                <MessageSquare size={18} className="mt-2" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-primary truncate">
+                    Wildcard suggestions for gameweek...
+                  </p>
+                  <p className="text-xs text-muted mt-1">Today, 2:45pm</p>
+                </div>
               </li>
-              <li className="text-sm text-primary truncate">
-                Best gameweek differentials for...
+              <li className="p-3 rounded-lg bg-aux/30 hover:bg-aux/50 cursor-pointer transition-colors flex items-start gap-2">
+                <MessageSquare size={18} className="mt-2" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-primary truncate">
+                    Best gameweek differentials for...
+                  </p>
+                  <p className="text-xs text-muted mt-1">Yesterday, 09:30pm</p>
+                </div>
               </li>
             </ul>
-            <button className="mt-3 text-sm text-greenAccent font-medium cursor-pointer">
+            <button className="mt-3 text-sm text-greenAccent font-medium cursor-pointer hover:text-greenAccent/80 transition-colors">
               Show More
             </button>
           </div>

@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { ArrowLeft, Trash2 } from "lucide-react";
 import useAuth from "../hooks/useAuth";
 import useFPL from "../hooks/useFPL";
 
 export default function Settings() {
-  const { loading, fplTeam, unlinkFPL } = useFPL();
+  const { loading, fplTeam, unlinkFPL, getFPLTeam } = useFPL();
   const { logout } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!fplTeam) {
+      getFPLTeam();
+    }
+  }, []);
 
   const handleUnlinkFPL = async () => {
     if (
@@ -55,7 +62,7 @@ export default function Settings() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 ml-[-18rem] pl-72">
+      <div className="bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 -ml-72 pl-72">
         <button
           onClick={() => navigate("/dashboard")}
           className="text-muted hover:text-primary ml-2"

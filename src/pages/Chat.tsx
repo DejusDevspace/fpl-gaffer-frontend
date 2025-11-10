@@ -22,6 +22,7 @@ export default function Chat() {
   const [loading, setLoading] = useState(false);
   const [fplTeam, setFplTeam] = useState<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +33,14 @@ export default function Chat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      const newHeight = Math.min(textareaRef.current.scrollHeight, 200);
+      textareaRef.current.style.height = `${newHeight}px`;
+    }
+  }, [message]);
 
   const loadFPLTeam = async () => {
     try {
@@ -181,15 +190,21 @@ export default function Chat() {
 
       {/* Input */}
       <div className="bg-surface border-t border-aux p-4">
-        <div className="max-w-4xl mx-auto flex gap-2">
-          <input
-            type="text"
+        <div className="max-w-4xl mx-auto flex gap-2 items-end">
+          <textarea
+            ref={textareaRef}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
             placeholder="Ask about transfers, captains, strategy..."
             disabled={loading}
-            className="flex-1 border border-aux bg-surface text-primary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent disabled:bg-neutral"
+            rows={1}
+            className="flex-1 border border-aux bg-surface text-primary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent disabled:bg-neutral resize-none overflow-hidden max-h-[200px]"
           />
           <button
             onClick={(e) => {

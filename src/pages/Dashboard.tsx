@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useFPL from "../hooks/useFPL";
+import { useSidebar } from "../hooks/useSidebar";
 import { MessageSquare, TrendingUp, Settings, LogOut } from "lucide-react";
 import StatCard from "../components/StatCard";
 import RankChart from "../components/RankChart";
@@ -11,6 +12,7 @@ export default function Dashboard() {
   const { loading, syncing, error, dashboardData, syncFPLData } = useFPL();
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const { isOpen } = useSidebar();
 
   const handleLogout = async () => {
     await logout();
@@ -61,7 +63,11 @@ export default function Dashboard() {
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
       {/* TODO: To replace with sidebar */}
-      <nav className="bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 -ml-72 pl-72">
+      <nav
+        className={`bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 transition-all duration-300 ${
+          isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold text-primary">

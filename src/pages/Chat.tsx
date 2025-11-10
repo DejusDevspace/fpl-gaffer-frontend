@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Send, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useSidebar } from "../hooks/useSidebar";
 import apiClient from "../api/apiClient";
 
 interface Message {
@@ -24,6 +25,7 @@ export default function Chat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
+  const { isOpen } = useSidebar();
 
   useEffect(() => {
     loadFPLTeam();
@@ -107,7 +109,11 @@ export default function Chat() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 -ml-72 pl-72">
+      <div
+        className={`bg-surface shadow-sm border-b border-aux p-4 flex items-center gap-4 transition-all duration-300 ${
+          isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"
+        }`}
+      >
         <button
           onClick={() => navigate("/dashboard")}
           className="text-muted hover:text-primary ml-2"

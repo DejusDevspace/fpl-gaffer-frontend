@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FiSettings, FiChevronRight } from "react-icons/fi";
-import { MessageSquare } from "lucide-react";
 import {
   BsChatLeftDots,
   BsClockHistory,
@@ -9,10 +7,12 @@ import {
   BsTrophy,
   BsQuestionCircleFill,
 } from "react-icons/bs";
+import { MessageSquare } from "lucide-react";
+import { useSidebar } from "../../hooks/useSidebar";
 
 const Sidebar = () => {
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(true);
+  const { isOpen, toggleSidebar } = useSidebar();
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -35,7 +35,7 @@ const Sidebar = () => {
             </div>
           )}
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={toggleSidebar}
             className="text-primary hover:text-accent transition-colors p-1 z-20"
             title={isOpen ? "Collapse" : "Expand"}
           >

@@ -83,13 +83,18 @@ const Sidebar = () => {
                 </li>
               </Link>
 
-              <li
-                className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors"
-                title="Leagues"
-              >
-                <BsTrophy />
-                {isOpen && "Leagues"}
-              </li>
+              <Link to="/leagues" title="Leagues">
+                <li
+                  className={`px-6 py-2 flex items-center gap-3 cursor-pointer rounded-r-full transition-colors ${
+                    isActive("/leagues")
+                      ? "bg-active/20 text-active border-r-4 border-active"
+                      : "hover:bg-aux/80 text-primary"
+                  }`}
+                >
+                  <BsTrophy />
+                  {isOpen && "Leagues"}
+                </li>
+              </Link>
 
               <li
                 className="px-6 py-2 flex items-center gap-3 hover:bg-aux/80 cursor-pointer text-primary rounded-r-full transition-colors"

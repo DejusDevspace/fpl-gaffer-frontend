@@ -14,6 +14,38 @@ export interface FPLContextType {
   getFPLTeam: () => Promise<void>;
   syncFPLData: (fplId: number) => Promise<void>;
   dashboardData: DashboardData | null;
+  leaguesData: LeaguesData | null;
+  getLeagues: () => Promise<void>;
+  selectedLeague: LeagueStanding | null;
+  setSelectedLeague: (league: LeagueStanding | null) => void;
+}
+
+export interface LeaguesData {
+  classic: LeagueInfo[];
+  h2h?: LeagueInfo[];
+}
+
+export interface LeagueInfo {
+  league_id: number;
+  league_name: string;
+  league_type: string;
+  entry_rank: number;
+  entry_last_rank: number;
+  start_event: number;
+}
+
+export interface LeagueStanding {
+  entry: number;
+  event_total: number;
+  league_entry: number;
+  league_entry_id: number;
+  player_first_name: string;
+  player_last_name: string;
+  player_name?: string;
+  rank: number;
+  rank_sort: number;
+  team_name: string;
+  total: number;
 }
 
 export interface DashboardData {
@@ -80,6 +112,15 @@ export default function FPLProvider({ children }: FPLProviderProps) {
     }
   );
 
+  const [leaguesData, setLeaguesData] = useState<LeaguesData | null>(() => {
+    const stored = localStorage.getItem("leaguesData");
+    return stored ? JSON.parse(stored) : null;
+  });
+
+  const [selectedLeague, setSelectedLeague] = useState<LeagueStanding | null>(
+    null
+  );
+
   const setIsLinkedWithPersist = (linked: boolean | null) => {
     setIsLinked(linked);
     if (linked !== null) {
@@ -107,6 +148,15 @@ export default function FPLProvider({ children }: FPLProviderProps) {
     }
   };
 
+  const setLeaguesDataWithPersist = (data: LeaguesData | null) => {
+    setLeaguesData(data);
+    if (data) {
+      localStorage.setItem("leaguesData", JSON.stringify(data));
+    } else {
+      localStorage.removeItem("leaguesData");
+    }
+  };
+
   useEffect(() => {
     if (!authenticated) {
       return;
@@ -114,6 +164,7 @@ export default function FPLProvider({ children }: FPLProviderProps) {
 
     getDashboardData();
     getFPLTeam();
+    getLeagues();
   }, [authenticated]);
 
   const linkFPL = async (fplId: number) => {
@@ -194,6 +245,19 @@ export default function FPLProvider({ children }: FPLProviderProps) {
     }
   };
 
+  const getLeagues = async () => {
+    try {
+      const data = await apiClient.getLeagues();
+      setLeaguesDataWithPersist(data);
+    } catch (err: any) {
+      if (err.response?.status === 404) {
+        setLeaguesDataWithPersist(null);
+      } else {
+        console.error("Failed to load leagues:", err);
+      }
+    }
+  };
+
   const value: FPLContextType = {
     loading,
     syncing,
@@ -205,6 +269,10 @@ export default function FPLProvider({ children }: FPLProviderProps) {
     getFPLTeam,
     syncFPLData,
     dashboardData,
+    leaguesData,
+    getLeagues,
+    selectedLeague,
+    setSelectedLeague,
   };
 
   return <FPLContext.Provider value={value}>{children}</FPLContext.Provider>;

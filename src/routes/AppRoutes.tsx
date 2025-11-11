@@ -8,6 +8,7 @@ import {
   Dashboard,
   Settings,
   Help,
+  Leagues,
 } from "../pages";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -54,6 +55,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Help />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/leagues"
+        element={
+          <ProtectedRoute>
+            <Leagues />
           </ProtectedRoute>
         }
       />

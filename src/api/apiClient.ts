@@ -80,6 +80,20 @@ class APIClient {
     return response.data;
   }
 
+  // Leagues endpoints
+  async getLeagues() {
+    const response = await this.client.get("/api/user/leagues");
+    return response.data;
+  }
+
+  async getLeagueStandings(leagueId: number, page: number = 1) {
+    const response = await this.client.get(
+      `/api/user/leagues/classic/${leagueId}/standings`,
+      { params: { page } }
+    );
+    return response.data;
+  }
+
   // Chat endpoint
   async chat(message: string, sessionId?: string) {
     const response = await this.client.post("/api/chat", {

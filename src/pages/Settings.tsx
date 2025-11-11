@@ -100,7 +100,7 @@ export default function Settings() {
             <ArrowLeft size={24} />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-primary">Settings</h1>
+            <h1 className="text-xl font-bold text-primary">Settings</h1>
             <p className="text-sm text-muted mt-1">
               Manage your account and FPL team
             </p>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useFPL from "../hooks/useFPL";
 import { useSidebar } from "../hooks/useSidebar";
 import apiClient from "../api/apiClient";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowLeft } from "lucide-react";
 
 export interface standingsData {
   new_entries: Array<any>;
@@ -90,23 +90,25 @@ export default function Leagues() {
       <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
         {/* Header */}
         <nav
-          className={`bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 transition-all duration-300 ${
+          className={`bg-surface/70 shadow-sm border-b border-aux h-[85px] p-2 sticky top-0 z-20 transition-all duration-300 ${
             isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="max-w-7xl flex mx-auto px-4 gap-4 py-2">
             <button
               onClick={() => setSelectedLeagueId(null)}
-              className="mb-4 text-accent hover:text-accent/80 flex items-center gap-1 transition"
+              className="text-accent hover:text-accent/80 flex items-center gap-1 transition"
             >
-              ← Back to Leagues
+              <ArrowLeft size={24} />
             </button>
-            <h1 className="text-3xl font-bold text-primary">{league.name}</h1>
-            <p className="text-sm text-muted mt-1">
-              {league.scoring === "c"
-                ? "Classic League"
-                : "Head to Head League"}
-            </p>
+            <div>
+              <h1 className="text-xl font-bold text-primary">{league.name}</h1>
+              <p className="text-sm text-muted mt-1">
+                {league.scoring === "c"
+                  ? "Classic League"
+                  : "Head to Head League"}
+              </p>
+            </div>
           </div>
         </nav>
 
@@ -202,12 +204,12 @@ export default function Leagues() {
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
       {/* Header */}
       <nav
-        className={`bg-surface/70 shadow-sm border-b border-aux sticky top-0 z-20 transition-all duration-300 ${
+        className={`bg-surface/70 shadow-sm border-b border-aux h-[85px] sticky top-0 z-20 transition-all duration-300 ${
           isOpen ? "-ml-72 pl-72" : "-ml-20 pl-20"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <h1 className="text-3xl font-bold text-primary">Leagues</h1>
+          <h1 className="text-2xl font-bold text-primary">Leagues</h1>
           <p className="text-sm text-muted mt-1">
             Manage and view your league standings
           </p>

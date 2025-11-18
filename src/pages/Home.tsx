@@ -1,8 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 export default function Home() {
   const { authenticated } = useAuth();
+  const navigate = useNavigate();
+
+  if (authenticated) {
+    navigate("/dashboard");
+  }
 
   return (
     <div className="min-h-screen bg-linear-to-br from-background to-accent/50">
@@ -19,41 +24,22 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            {authenticated ? (
-              <>
-                <Link
-                  to="/dashboard"
-                  className="block w-full bg-aux hover:bg-aux/70 hover:scale-105 text-white
-                  font-semibold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg"
-                >
-                  View Dashboard
-                </Link>
-                <Link
-                  to="/chat"
-                  className="block w-full bg-accent hover:bg-accent/70 hover:scale-105 text-white
-                  font-semibold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg"
-                >
-                  Chat with Gaffer
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/signup"
-                  className="block w-full bg-aux hover:bg-aux/70 hover:scale-105 text-white
+            <div>
+              <Link
+                to="/signup"
+                className="block w-full bg-aux hover:bg-aux/70 hover:scale-105 text-white
                   font-semibold py-4 px-8 rounded-lg transition shadow-lg"
-                >
-                  Get Started
-                </Link>
-                <Link
-                  to="/login"
-                  className="block w-full bg-accent hover:bg-accent/70 hover:scale-105 text-white
+              >
+                Get Started
+              </Link>
+              <Link
+                to="/login"
+                className="block w-full bg-accent hover:bg-accent/70 hover:scale-105 text-white
                   font-semibold py-4 px-8 rounded-lg transition shadow-lg"
-                >
-                  Login
-                </Link>
-              </>
-            )}
+              >
+                Login
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -61,8 +47,18 @@ export default function Home() {
       {/* Scroll Indicator */}
       <div className="flex justify-center pb-8">
         <div className="animate-bounce">
-          <svg className="w-6 h-6 text-primary/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          <svg
+            className="w-6 h-6 text-primary/40"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
           </svg>
         </div>
       </div>
